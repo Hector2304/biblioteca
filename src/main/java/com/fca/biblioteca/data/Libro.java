@@ -1,33 +1,53 @@
 package com.fca.biblioteca.data;
 
-import java.time.Year;
-
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name="libro")
-
+@Table(name = "libro")
 public class Libro {
-@Id
-@GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int idLibro;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idlibro")
+    private Integer idLibro;
+
+    @Column(name = "titulo", nullable = false)
     private String titulo;
-    private int anioPublicacion;
+
+    @Column(name = "aniopublicacion")
+    private Integer anioPublicacion;
+
+    @Column(name = "editorial")
     private String editorial;
+
+    @Column(name = "edicion")
     private String edicion;
+
+    @Column(name = "isbn")
     private String isbn;
-    private int existencia;
 
-    public Libro() {}
+    @Column(name = "existencia")
+    private Integer existencia;
 
-// Getters y Setters
+    // Relaciones
 
-    public int getIdlibro() {
+    @OneToMany(mappedBy = "libro", cascade = CascadeType.ALL)
+    private List<AutorLibro> autores;
+
+    @OneToMany(mappedBy = "libro", cascade = CascadeType.ALL)
+    private List<Prestamo> prestamos;
+
+    // =============================
+    // Getters y Setters
+    // =============================
+
+    public Integer getIdLibro() {
         return idLibro;
     }
 
-    public void setIdlibro(int idlibro) {
-        this.idLibro = idlibro;
+    public void setIdLibro(Integer idLibro) {
+        this.idLibro = idLibro;
     }
 
     public String getTitulo() {
@@ -38,11 +58,11 @@ public class Libro {
         this.titulo = titulo;
     }
 
-    public int getanioPublicacion() {
+    public Integer getAnioPublicacion() {
         return anioPublicacion;
     }
 
-    public void setAniopublicacion(int aniopublicacion) {
+    public void setAnioPublicacion(Integer anioPublicacion) {
         this.anioPublicacion = anioPublicacion;
     }
 
@@ -70,12 +90,27 @@ public class Libro {
         this.isbn = isbn;
     }
 
-    public int getExistencia() {
+    public Integer getExistencia() {
         return existencia;
     }
 
-    public void setExistencia(int existencia) {
+    public void setExistencia(Integer existencia) {
         this.existencia = existencia;
     }
 
+    public List<AutorLibro> getAutores() {
+        return autores;
+    }
+
+    public void setAutores(List<AutorLibro> autores) {
+        this.autores = autores;
+    }
+
+    public List<Prestamo> getPrestamos() {
+        return prestamos;
+    }
+
+    public void setPrestamos(List<Prestamo> prestamos) {
+        this.prestamos = prestamos;
+    }
 }
