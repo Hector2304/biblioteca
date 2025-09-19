@@ -8,13 +8,18 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class LibroController {
-    @Autowired
-    private LibroDomain libroDomain;
-    @RequestMapping(value = "/libros", method = RequestMethod.GET)
-    public List<Libro> getLibrosPorTitulo(@RequestParam String titulo, @RequestParam String edicion) {
-        return libroDomain.buscarLibroPorTitulo(titulo, edicion);
 
+    private final LibroDomain libroDomain;
+    //Inyección por constructor
+    public LibroController(LibroDomain libroDomain) {
+        this.libroDomain = libroDomain;
+    }
+    // @RequestMapping(value = "/libros", method = RequestMethod.GET)
+    @GetMapping("/libros")
+    public List<Libro> getLibrosPorTitulo(@RequestParam String titulo,
+                                          @RequestParam String edicion) {
+        return libroDomain.buscarLibrosDisponibles(titulo, edicion);
     }
 }

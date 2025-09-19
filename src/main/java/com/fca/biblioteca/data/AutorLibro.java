@@ -1,5 +1,6 @@
 package com.fca.biblioteca.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,6 +17,7 @@ public class AutorLibro {
     private Autor autor;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "idlibro", referencedColumnName = "idlibro", nullable = false)
     private Libro libro;
 

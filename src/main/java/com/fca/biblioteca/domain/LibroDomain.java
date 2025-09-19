@@ -15,7 +15,7 @@ public class LibroDomain {
     @Autowired
     private LibroRepository libroRepository;
 
-    public List<Libro> buscarLibroPorTitulo(String titulo,  String edicion){
+    public List<Libro> buscarLibrosDisponibles(String titulo,  String edicion){
 
         if (titulo == null || edicion == null || titulo.isEmpty() || edicion.isEmpty()) {
             return new ArrayList<>();

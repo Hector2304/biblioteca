@@ -1,5 +1,6 @@
 package com.fca.biblioteca.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -16,8 +17,12 @@ public class Autor {
     @JoinColumn(name = "idpersona", referencedColumnName = "idpersona", nullable = false)
     private Persona persona;
 
+
+
     @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<AutorLibro> autorLibros;
+
 
     // =============================
     // Getters y Setters

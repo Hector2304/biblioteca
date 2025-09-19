@@ -33,6 +33,7 @@ public class Libro {
     // Relaciones
 
     @OneToMany(mappedBy = "libro", cascade = CascadeType.ALL)
+
     private List<AutorLibro> autores;
 
     @OneToMany(mappedBy = "libro", cascade = CascadeType.ALL)
