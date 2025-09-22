@@ -30,4 +30,30 @@ public class LibroDomain {
                 .collect(Collectors.toList());
         //return  libroRepository.findByTituloContainingIgnoreCase(titulo);
     }
+    public List<Libro> buscarLibros(String titulo,  String edicion){
+
+        if (titulo == null || edicion == null || titulo.isEmpty() || edicion.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        Predicate<Libro> filtroLibro = libro -> libro !=null && libro.getTitulo().equals(titulo)
+                && libro.getEdicion().equals(edicion);
+        Predicate<Libro> filtroDisponible = disponible -> disponible !=null;
+        return libroRepository.findAll()
+                .stream()
+                .filter(filtroLibro.and(filtroDisponible))
+                .collect(Collectors.toList());
+        //return  libroRepository.findByTituloContainingIgnoreCase(titulo);
+    }
+    public List<Libro> buscarTodosLibros(){
+        return libroRepository.findAll();
+    }
+    public List<Libro> buscarTodosLibrosExistentes()
+    {
+        Predicate<Libro> filtroDisponible = disponible -> disponible !=null  && disponible.getExistencia()>0;
+        return libroRepository.findAll()
+        .stream()
+            .filter(filtroDisponible)
+            .collect(Collectors.toList());
+    }
 }
